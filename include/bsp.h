@@ -1,6 +1,8 @@
 #ifndef __BSP_H__
 #define __BSP_H__
 
+#include <mipsregs.h>
+
 #define readb(reg)		(*((volatile unsigned char *) (reg)))
 #define readw(reg)		(*((volatile unsigned short *) (reg)))
 #define readl(reg)		(*((volatile unsigned int *) (reg)))
