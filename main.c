@@ -1,19 +1,14 @@
-#define UART0_BASE 0xB40003F8  /* 16550 COM1 */
+#include <bsp.h>
+#include <uart.h>
 
-void init_serial() {
-	volatile char * addr;
-	addr = (volatile char*)(UART0_BASE + 2);
-	*addr = 0xc1;
-	addr = (volatile char*)(UART0_BASE + 3);
-	*addr = 0x03;
-	addr = (volatile char*)(UART0_BASE + 4);
-	*addr = 0x03;
-	addr = (volatile char*)(UART0_BASE + 5);
-	*addr = 0x60;
-	addr = (volatile char*)(UART0_BASE + 6);
-	*addr = 0xb0;
-	addr = (volatile char*)(UART0_BASE + 7);
-	*addr = 0x00;
+void init_serial()
+{
+	writeb(0xc1, UART0_BASE + 2);
+	writeb(0x03, UART0_BASE + 3);
+	writeb(0x03, UART0_BASE + 4);
+	writeb(0x60, UART0_BASE + 5);
+	writeb(0xb0, UART0_BASE + 6);
+	writeb(0x00, UART0_BASE + 7);
 }
 
 int is_transmit_empty()

@@ -8,6 +8,10 @@ AS = $(CROSS_COMPILE)as
 AR = $(CROSS_COMPILE)ar
 OBJCOPY = $(CROSS_COMPILE)objcopy
 
+SYS_INC = include/
+DRV_INC =Drivers/include/
+INC_FLAGS += -I$(SYS_INC) -I$(DRV_INC)
+
 CFLAGS += -mips32 -EL -static -Wall -g -nostdlib -fno-exceptions -fno-builtin -nostdinc -fno-stack-protector
 LDFLAGS += -nostdlib -nostartfiles -nodefaultlibs -EL
 
@@ -34,7 +38,7 @@ $(ELF_IMAGE):$(OBJS)
 $(OBJDIR)start.o:start.S
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJDIR)main.o:main.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
 
 $(OBJDIR):
 	mkdir -p $@
