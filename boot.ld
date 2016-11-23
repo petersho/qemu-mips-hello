@@ -1,0 +1,12 @@
+ENTRY(_start)
+SECTIONS
+{
+	. = 0x80100400;
+	.startup . : { obj/start.o(.text) }
+	.text : { *(.text) }
+	.data : { *(.data) }
+	.bss : { *(.bss) }
+	. = . + 0x1000; /* 4kB of stack memory */
+	stack_top = .;
+}
+
