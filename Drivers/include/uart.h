@@ -7,5 +7,6 @@
 // API
 void init_serial(void);
 void print_uart0(const char *s);
+void putc(char a);
 
 #endif

@@ -8,7 +8,7 @@ static int is_transmit_empty()
 	return *addr & 0x20;
 }
 
-static void write_serial(char a)
+void putc(char a)
 {
 	volatile char *addr = (volatile char*)UART0_BASE;
 
@@ -18,8 +18,8 @@ static void write_serial(char a)
 
 void print_uart0(const char *s)
 {
-	while(*s != '\0') { /* Loop until end of string */
-		write_serial( *s );
+	while (*s != '\0') { /* Loop until end of string */
+		putc(*s);
 		s++; /* Next char */
 	}
 }
