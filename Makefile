@@ -1,5 +1,6 @@
 OBJDIR = obj/
 BINDIR = bin/
+DRVDIR = Drivers/
 
 CROSS_COMPILE = mipsel-linux-
 CC = $(CROSS_COMPILE)gcc
@@ -12,7 +13,7 @@ SYS_INC = include/
 DRV_INC =Drivers/include/
 INC_FLAGS += -I$(SYS_INC) -I$(DRV_INC)
 
-CFLAGS += -mips32 -EL -static -Wall -g -nostdlib -fno-exceptions -fno-builtin -nostdinc -fno-stack-protector
+CFLAGS += -mips32 -EL -Wall -g -fno-exceptions -fno-builtin -mno-abicalls -nostdinc -fno-stack-protector
 LDFLAGS += -nostdlib -nostartfiles -nodefaultlibs -EL
 
 ELF_IMAGE = $(BINDIR)image.elf
@@ -22,9 +23,9 @@ LINKER_SCRIPT = boot.ld
 
 APP_OBJS += main.o
 STARTUP_OBJ += start.o
+DRIVER_OBJ += uart.o
 
-OBJS = $(addprefix $(OBJDIR), $(STARTUP_OBJ) $(APP_OBJS))
-
+OBJS = $(addprefix $(OBJDIR), $(STARTUP_OBJ) $(DRIVER_OBJ) $(APP_OBJS))
 
 all: $(TARGET)
 
@@ -39,6 +40,11 @@ $(OBJDIR)start.o:start.S
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJDIR)main.o:main.c
 	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+
+# Drivers
+$(OBJDIR)uart.o:$(DRVDIR)uart.c
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+
 
 $(OBJDIR):
 	mkdir -p $@
