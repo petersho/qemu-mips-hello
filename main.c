@@ -6,6 +6,9 @@ int main()
 	unsigned int tt = 0;
 	int i = 0;
 
+	// Test exception
+	//writel(0xffffffff, 0x12341234);
+
 	init_serial();
 	print_uart0("Hello world!\n");
 

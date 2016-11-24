@@ -1,7 +1,7 @@
 ENTRY(_start)
 SECTIONS
 {
-	. = 0x80100400;
+	. = 0x80000000;
 	.startup . : { obj/start.o(.text) }
 	.text : { *(.text) }
 	.data : { *(.data) }
